@@ -1,0 +1,1 @@
+const activePage=window.location.pathname,menuLinks=document.querySelectorAll(".header__menu a").forEach((e=>{e.href.includes(`${activePage}`)&&e.classList.add("--active")}));
