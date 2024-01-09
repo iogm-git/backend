@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Code;
 
 use App\Helpers\ResponseApiHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Code\Instructor\Studies\Courses;
 use App\Models\Code\Member;
 use App\Models\Member as CoreMember;
 use Illuminate\Support\Facades\Validator;
@@ -56,5 +57,10 @@ class MemberController extends Controller
         } else {
             return ResponseApiHelper::customApiResponse(false, null, null, 'Data was not successfully retrieved.');
         }
+    }
+
+    public function getSearchCourse()
+    {
+        return ResponseApiHelper::customApiResponse(true, Courses::where('title', 'like', '%' . request('title') . '%')->get('title'), 'Data retrieved successfully.');
     }
 }

@@ -12,6 +12,14 @@ class Lessons extends Model
     protected $guarded = ['id'];
     protected $with = ['section'];
 
+    protected $dates = ['timestamp'];
+
+    // Accessor for formatted timestamp
+    public function getFormattedTimestampAttribute()
+    {
+        return $this->attributes['timestamp']->format('D, d-m-Y');
+    }
+
     public function section()
     {
         return $this->belongsTo(Sections::class, 'section_id', 'id');

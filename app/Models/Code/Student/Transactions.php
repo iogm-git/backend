@@ -14,6 +14,14 @@ class Transactions extends Model
     protected $guarded = ['id'];
     protected $with = ['student', 'course'];
 
+    protected $dates = ['timestamp'];
+
+    // Accessor for formatted timestamp
+    public function getFormattedTimestampAttribute()
+    {
+        return $this->attributes['timestamp']->format('D, d-m-Y');
+    }
+
     public function student()
     {
         return $this->belongsTo(Member::class, 'student_id', 'username');

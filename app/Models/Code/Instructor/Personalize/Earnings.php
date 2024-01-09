@@ -8,12 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Earnings extends Model
 {
+    public $timestamps = false;
     protected $connection = 'pgsql';
 
     protected $table = 'instructor_earnings';
     protected $guarded = ['id'];
-    public $timestamps = false;
     protected $with = ['course', 'student'];
+
+    protected $dates = ['recorded_at'];
+
+    // Accessor for formatted timestamp
+    public function getFormattedTimestampAttribute()
+    {
+        return $this->attributes['recorded_at']->format('D, d-m-Y');
+    }
 
     public function course()
     {

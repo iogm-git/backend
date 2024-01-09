@@ -20,6 +20,7 @@ class TransactionsSeeder extends Seeder
             'student_id' => 'student_one',
             'course_id' => 2,
             'amount' => 15000,
+            'status' => 'PAID'
         ]);
 
         Transactions::create([

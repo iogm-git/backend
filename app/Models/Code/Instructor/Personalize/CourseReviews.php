@@ -14,6 +14,14 @@ class CourseReviews extends Model
     protected $guarded = ['id'];
     protected $with = ['course', 'student'];
 
+    protected $dates = ['timestamp'];
+
+    // Accessor for formatted timestamp
+    public function getFormattedTimestampAttribute()
+    {
+        return $this->attributes['timestamp']->format('D, d-m-Y');
+    }
+
     public function course()
     {
         return $this->belongsTo(Courses::class, 'course_id', 'id');

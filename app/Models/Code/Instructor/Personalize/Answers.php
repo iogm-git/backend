@@ -14,6 +14,14 @@ class Answers extends Model
     protected $guarded = ['id'];
     protected $with = ['question', 'instructor'];
 
+    protected $dates = ['timestamp'];
+
+    // Accessor for formatted timestamp
+    public function getFormattedTimestampAttribute()
+    {
+        return $this->attributes['timestamp']->format('D, d-m-Y');
+    }
+
     public function question()
     {
         return $this->belongsTo(Questions::class, 'question_id', 'id');

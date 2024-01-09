@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Code;
+namespace Tests\Feature\Code\Student;
 
 use Tests\CreatesApplication;
 use Tests\TestCase;
 
-class MemberTest extends TestCase
+class ProfileTest extends TestCase
 {
     use CreatesApplication;
 
@@ -23,8 +23,8 @@ class MemberTest extends TestCase
     protected function loginUser()
     {
         $jwtToken = $this->post('auth/login', [
-            'username' => 'ilhamrhmtkbr',
-            'password' => 'ilham25'
+            'username' => 'student_one',
+            'password' => 'student_one'
         ]);
 
         $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
@@ -35,39 +35,30 @@ class MemberTest extends TestCase
         $this->username = $user->json('username');
     }
 
-    public function test_code_member_register()
+    public function test_code_student_profile_get_profile()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', '/code/member/register', ['username' => $this->username, 'role' => 'instructor']);
+            ->json('get', '/code/student/profile', ['student_id' => 'student_one']);
 
         $response->assertStatus(200);
     }
 
-    public function test_code_member_update_dob_and_address()
+    public function test_code_student_profile_store_stash()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('put', '/code/member/dob-address', ['username' => $this->username, 'dob' => null, 'address' => null]);
+            ->json('post', '/code/student/stash', ['student_id' => 'student_one', 'course_id' => 2]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(422);
     }
 
-    public function test_code_member_get_photo_profile()
+    public function test_code_student_profile_destroy_stash()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('get', '/code/member/photo-profile', ['username' => $this->username]);
+            ->json('delete', '/code/student/stash', ['student_id' => 'student_one', 'course_id' => 111]);
 
-        $response->assertStatus(200);
-    }
-
-    public function test_code_member_get_search_course()
-    {
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('get', '/code/member/search-course', ['title' => 'PHP']);
-
-        $response->dd();
+        $response->assertStatus(422);
     }
 }
