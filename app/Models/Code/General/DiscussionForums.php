@@ -3,7 +3,7 @@
 namespace App\Models\Code\General;
 
 use App\Models\Code\Instructor\Studies\Courses;
-use App\Models\Code\Member;
+use App\Models\Code\General\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class DiscussionForums extends Model
@@ -13,14 +13,11 @@ class DiscussionForums extends Model
     protected $table = 'discussion_forums';
     protected $guarded = ['id'];
     protected $with = ['course', 'student'];
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y',
+        'updated_at' => 'datetime:d-M-Y'
 
-    protected $dates = ['timestamp'];
-
-    // Accessor for formatted timestamp
-    public function getFormattedTimestampAttribute()
-    {
-        return $this->attributes['timestamp']->format('D, d-m-Y');
-    }
+    ];
 
     public function course()
     {

@@ -3,24 +3,23 @@
 namespace App\Models\Code\Student;
 
 use App\Models\Code\Instructor\Studies\Courses;
-use App\Models\Code\Member;
+use App\Models\Code\General\Member;
+// use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Certificates extends Model
 {
     protected $connection = 'pgsql';
 
+    protected $keyType = 'string';
     protected $table = 'student_certificates';
     protected $guarded = ['id'];
     protected $with = ['course', 'student'];
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y',
+        'updated_at' => 'datetime:d-M-Y'
 
-    protected $dates = ['timestamp'];
-
-    // Accessor for formatted timestamp
-    public function getFormattedTimestampAttribute()
-    {
-        return $this->attributes['timestamp']->format('D, d-m-Y');
-    }
+    ];
 
     public function course()
     {

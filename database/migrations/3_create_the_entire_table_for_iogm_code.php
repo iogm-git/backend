@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('instructor_id');
             $table->string('title')->unique();
             $table->text('description');
-            $table->integer('price');
+            $table->decimal('price');
             $table->timestamps();
 
             $table->foreign('instructor_id')->references('username')->on('member_data')->onUpdate('cascade')->onDelete('cascade');
@@ -129,7 +129,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_id');
             $table->string('student_id');
-            $table->integer('completed_lectures')->default(0);
+            $table->decimal('completed_lectures')->default(0);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('instructor_courses')->onUpdate('cascade')->onDelete('cascade');
@@ -137,7 +137,7 @@ return new class extends Migration
         });
 
         Schema::create('student_certificates', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->unsignedBigInteger('course_id');
             $table->string('student_id');
             $table->timestamps();

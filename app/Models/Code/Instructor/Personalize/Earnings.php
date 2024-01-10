@@ -3,7 +3,7 @@
 namespace App\Models\Code\Instructor\Personalize;
 
 use App\Models\Code\Instructor\Studies\Courses;
-use App\Models\Code\Member;
+use App\Models\Code\General\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Earnings extends Model
@@ -14,14 +14,11 @@ class Earnings extends Model
     protected $table = 'instructor_earnings';
     protected $guarded = ['id'];
     protected $with = ['course', 'student'];
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y',
+        'updated_at' => 'datetime:d-M-Y'
 
-    protected $dates = ['recorded_at'];
-
-    // Accessor for formatted timestamp
-    public function getFormattedTimestampAttribute()
-    {
-        return $this->attributes['recorded_at']->format('D, d-m-Y');
-    }
+    ];
 
     public function course()
     {

@@ -29,7 +29,7 @@ class CheckPaidStatus
 
         if ($transactions->isEmpty()) {
             // If no paid transactions, return a JSON response
-            return ResponseApiHelper::customApiResponse(false, null, null, 'Student hasn\'t paid yet.' . $studentId);
+            return ResponseApiHelper::customApiResponse(false, null, null, 'Student hasn\'t paid yet.');
         }
 
         return $next($request);

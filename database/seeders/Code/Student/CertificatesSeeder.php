@@ -4,6 +4,7 @@ namespace Database\Seeders\Code\Student;
 
 use App\Models\Code\Student\Certificates;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CertificatesSeeder extends Seeder
 {
@@ -16,8 +17,9 @@ class CertificatesSeeder extends Seeder
     {
         //
         Certificates::create([
+            'id' => Str::uuid(),
             'course_id' => 1,
-            'student_id' => 'student_one'
+            'student_id' => 'student_one',
         ]);
     }
 }

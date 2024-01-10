@@ -20,10 +20,5 @@ class CourseProgressSeeder extends Seeder
             'student_id' => 'student_one',
             'completed_lectures' => 100
         ]);
-
-        CourseProgress::create([
-            'course_id' => 2,
-            'student_id' => 'student_one'
-        ]);
     }
 }

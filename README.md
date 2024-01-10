@@ -173,7 +173,7 @@ _Berikut ini adalah cara untuk memulai pengetesan._
 
 ## Usage
 
-Silahkan bisa test di postman, dengan menyesuaikai url pada folder `routes`
+Silahkan bisa test di postman, dengan menyesuaikai url pada folder `routes`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

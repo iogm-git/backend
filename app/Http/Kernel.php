@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
 
         // other middlewares...
         'auth.jwt' => \App\Http\Middleware\JwtMiddleware::class,
-        'checkPaidStatus' => \App\Http\Middleware\Code\Student\CheckPaidStatus::class,
+        'check-paid-status' => \App\Http\Middleware\Code\Student\CheckPaidStatus::class,
+        'email-otp-verification' => \App\Http\Middleware\EmailOtpVerificationMiddleware::class,
     ];
 }

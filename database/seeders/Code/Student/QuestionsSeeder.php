@@ -22,7 +22,7 @@ class QuestionsSeeder extends Seeder
         ]);
 
         Questions::create([
-            'course_id' => 2,
+            'course_id' => 1,
             'student_id' => 'student_one',
             'question' => 'question_two'
         ]);

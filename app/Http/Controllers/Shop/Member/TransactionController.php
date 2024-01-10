@@ -14,7 +14,7 @@ class TransactionController extends Controller
         return Transactions::where('member_username', '=', request('username'));
     }
 
-    public function member()
+    public function information()
     {
         if ($this->transaction()->exists()) {
             return ResponseApiHelper::customApiResponse(true, $this->transaction()->get(), 'Data retrieved successfully.');

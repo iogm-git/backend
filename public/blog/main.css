@@ -168,10 +168,6 @@ a {
     border: var(--border-medium)
 }
 
-.light-mode .header__logo img {
-    filter: invert(1)
-}
-
 .header__logo svg,
 .light-mode .header__menu-svg,
 .svg--color {

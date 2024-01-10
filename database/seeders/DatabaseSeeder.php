@@ -17,7 +17,8 @@ use Database\Seeders\Code\Instructor\Studies\Lessons2Seeder;
 use Database\Seeders\Code\Instructor\Studies\Lessons3Seeder;
 use Database\Seeders\Code\Instructor\Studies\SectionsSeeder;
 use Database\Seeders\Code\MemberSeeder as CodeMemberSeeder;
-
+use Database\Seeders\Code\Student\CertificatesSeeder;
+use Database\Seeders\Code\Student\CourseProgressSeeder;
 use Database\Seeders\MemberSeeder;
 
 use Database\Seeders\Shop\Member\TransactionsSeeder;
@@ -65,6 +66,9 @@ class DatabaseSeeder extends Seeder
                 // - student
                 StashSeeder::class,
                 StudentTransactionsSeeder::class,
+                QuestionsSeeder::class,
+                CourseProgressSeeder::class,
+                CertificatesSeeder::class,
                 // - student
 
                 // - general

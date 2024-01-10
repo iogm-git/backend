@@ -29,20 +29,32 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('blog')
-                ->group(base_path('routes/blog.php'));
-
             Route::middleware('api')
-                ->prefix('auth')
-                ->group(base_path('routes/auth.php'));
-
-            Route::middleware('api')
-                ->prefix('shop')
-                ->group(base_path('routes/shop.php'));
+                ->prefix('guest')
+                ->group(base_path('routes/guest.php'));
 
             Route::middleware('auth.jwt')
-                ->prefix('code')
-                ->group(base_path('routes/code.php'));
+                ->prefix('member')
+                ->group(base_path('routes/member.php'));
+
+            Route::prefix('blog')
+                ->group(base_path('routes/blog/guest.php'));
+
+            Route::middleware('auth.jwt')
+                ->prefix('shop/member')
+                ->group(base_path('routes/shop/member.php'));
+
+            Route::middleware('api')
+                ->prefix('shop/guest')
+                ->group(base_path('routes/shop/guest.php'));
+
+            Route::middleware('auth.jwt')
+                ->prefix('code/member')
+                ->group(base_path('routes/code/member.php'));
+
+            Route::middleware('api')
+                ->prefix('code/guest')
+                ->group(base_path('routes/code/guest.php'));
         });
     }
 

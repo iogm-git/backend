@@ -13,7 +13,7 @@ class ViewTest extends TestCase
      *
      * @return void
      */
-    public function test_blog_show_profile()
+    public function test_show_profile()
     {
         $response = $this->get('/blog/show?page=profile');
 

@@ -2,7 +2,7 @@
 
 namespace App\Models\Code\Instructor\Studies;
 
-use App\Models\Code\Member;
+use App\Models\Code\General\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Courses extends Model
@@ -12,14 +12,11 @@ class Courses extends Model
     protected $table = 'instructor_courses';
     protected $guarded = ['id'];
     protected $with = ['instructor'];
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y',
+        'updated_at' => 'datetime:d-M-Y'
 
-    protected $dates = ['timestamp'];
-
-    // Accessor for formatted timestamp
-    public function getFormattedTimestampAttribute()
-    {
-        return $this->attributes['timestamp']->format('D, d-m-Y');
-    }
+    ];
 
     public function instructor()
     {

@@ -11,14 +11,11 @@ class Lessons extends Model
     protected $table = 'instructor_lessons';
     protected $guarded = ['id'];
     protected $with = ['section'];
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y',
+        'updated_at' => 'datetime:d-M-Y'
 
-    protected $dates = ['timestamp'];
-
-    // Accessor for formatted timestamp
-    public function getFormattedTimestampAttribute()
-    {
-        return $this->attributes['timestamp']->format('D, d-m-Y');
-    }
+    ];
 
     public function section()
     {
