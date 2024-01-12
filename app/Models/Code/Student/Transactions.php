@@ -11,11 +11,14 @@ class Transactions extends Model
     protected $connection = 'pgsql';
 
     protected $table = 'student_transactions';
-    protected $guarded = ['id'];
+    protected $primaryKey = 'order_id';
+    protected $keyType = 'string';
+    protected $guarded = [''];
     protected $with = ['student', 'course'];
     protected $casts = [
         'created_at' => 'datetime:d-M-Y',
-        'updated_at' => 'datetime:d-M-Y'
+        'updated_at' => 'datetime:d-M-Y',
+        'midtrans_data' => 'json',
 
     ];
 

@@ -39,7 +39,7 @@ class TransactionsTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'code/member/student/transaction', ['student_id' => 'student_one', 'course_id' => 1, 'amount' => 15000]);
+            ->json('post', 'code/member/student/transaction', ['student_id' => 'student_one', 'course_id' => 1]);
 
         $response->assertStatus(422);
     }

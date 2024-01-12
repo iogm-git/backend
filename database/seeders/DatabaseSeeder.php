@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Code\Instructor\Studies\Courses;
+use App\Models\Code\Instructor\Studies\Lessons;
+use App\Models\Code\Instructor\Studies\Sections;
 use Database\Seeders\Code\General\DiscussionForumsSeeder;
 use Illuminate\Database\Seeder;
 
@@ -11,11 +14,11 @@ use Database\Seeders\Code\Student\TransactionsSeeder as StudentTransactionsSeede
 use Database\Seeders\Code\Instructor\Personalize\AnswersSeeder;
 use Database\Seeders\Code\Instructor\Personalize\CourseReviewsSeeder;
 use Database\Seeders\Code\Instructor\Personalize\EarningsSeeder;
-use Database\Seeders\Code\Instructor\Studies\CoursesSeeder;
-use Database\Seeders\Code\Instructor\Studies\Lessons1Seeder;
-use Database\Seeders\Code\Instructor\Studies\Lessons2Seeder;
-use Database\Seeders\Code\Instructor\Studies\Lessons3Seeder;
-use Database\Seeders\Code\Instructor\Studies\SectionsSeeder;
+// use Database\Seeders\Code\Instructor\Studies\CoursesSeeder;
+// use Database\Seeders\Code\Instructor\Studies\Lessons1Seeder;
+// use Database\Seeders\Code\Instructor\Studies\Lessons2Seeder;
+// use Database\Seeders\Code\Instructor\Studies\Lessons3Seeder;
+// use Database\Seeders\Code\Instructor\Studies\SectionsSeeder;
 use Database\Seeders\Code\MemberSeeder as CodeMemberSeeder;
 use Database\Seeders\Code\Student\CertificatesSeeder;
 use Database\Seeders\Code\Student\CourseProgressSeeder;
@@ -30,6 +33,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+
         $this->call(
             [
                 // ===== shop =====
@@ -44,15 +48,27 @@ class DatabaseSeeder extends Seeder
                 // - member data
                 CodeMemberSeeder::class,
                 // - member data
+            ]
+        );
+        Courses::factory(11)->create();
 
-                // - instructor
-                CoursesSeeder::class,
+        $this->call(
+            [ // - instructor
+                // CoursesSeeder::class,
                 CourseReviewsSeeder::class,
                 EarningsSeeder::class,
-                SectionsSeeder::class,
-                Lessons1Seeder::class,
-                Lessons2Seeder::class,
-                Lessons3Seeder::class,
+            ]
+        );
+
+        Sections::factory(17)->create();
+        Lessons::factory(27)->create();
+
+        $this->call(
+            [
+                // SectionsSeeder::class,
+                // Lessons1Seeder::class,
+                // Lessons2Seeder::class,
+                // Lessons3Seeder::class,
                 // - instructor
 
                 // - student

@@ -31,7 +31,7 @@ class WebController extends Controller
         $categories = [];
 
         for ($i = 0; $i < $data->count(); $i++) {
-            $categories[$i] = $data[$i]->category_name;
+            $categories[$i] = $data[$i]->name;
         }
 
         return ResponseApiHelper::customApiResponse(true, $categories, 'Data retrieved successfully.');

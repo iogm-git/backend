@@ -3,10 +3,13 @@
 namespace App\Models\Code\Instructor\Studies;
 
 use App\Models\Code\General\Member;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Courses extends Model
 {
+    use HasFactory;
+
     protected $connection = 'pgsql';
 
     protected $table = 'instructor_courses';

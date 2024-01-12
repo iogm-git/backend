@@ -18,7 +18,7 @@ class GuestController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'google']]);
+        $this->middleware('auth.jwt', ['except' => ['login', 'register', 'google']]);
     }
 
     public function google()
@@ -26,9 +26,11 @@ class GuestController extends Controller
         $member = Member::where('username', '=', request('username'));
 
         if (!$member->exists()) {
+            list($username, $_) = explode("@", request('email'));
+
             Member::create([
                 'id' => request('id'),
-                'username' => request('username'),
+                'username' => $username,
                 'member_password' => Hash::make('member_password'),
                 'name' => request('name'),
                 'email' => request('email'),

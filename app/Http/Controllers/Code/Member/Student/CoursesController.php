@@ -18,7 +18,7 @@ class CoursesController extends Controller
 {
     public function findSection()
     {
-        return Sections::where('course_id', request('course_id'));
+        return Sections::where('course_id', request('course_id')[0]);
     }
 
     public function findCourseProgress()

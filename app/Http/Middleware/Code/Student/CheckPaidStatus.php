@@ -24,7 +24,7 @@ class CheckPaidStatus
         // Perform a check if the student's transactions have a status of "paid"
         $transactions = Transactions::where('student_id', $studentId)
             ->whereIn('course_id', $courseId)
-            ->where('status', 'PAID')
+            ->where('status', 'settlement')
             ->get();
 
         if ($transactions->isEmpty()) {

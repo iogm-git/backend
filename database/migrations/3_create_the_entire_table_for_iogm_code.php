@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('username')->primary();
             $table->string('name')->default('User');
             $table->enum('role', ['instructor', 'student']);
+            $table->string('account_number')->nullable();
             $table->date('dob')->nullable();
             $table->string('address')->nullable()->default(null);
         });
@@ -114,11 +115,12 @@ return new class extends Migration
         });
 
         Schema::create('student_transactions', function (Blueprint $table) {
-            $table->id();
+            $table->string('order_id')->primary();
             $table->string('student_id');
             $table->unsignedBigInteger('course_id');
             $table->integer('amount');
-            $table->string('status')->default('UNPAID');
+            $table->json('midtrans_data')->nullable();
+            $table->string('status')->default('unpaid');
             $table->timestamps();
 
             $table->foreign('student_id')->references('username')->on('member_data')->onUpdate('cascade')->onDelete('cascade');

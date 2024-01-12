@@ -39,7 +39,7 @@ class VisitorsTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'code/guest/visitor/register', ['username' => $this->username, 'role' => 'instructor']);
+            ->json('post', 'code/guest/visitor/register', ['username' => $this->username, 'role' => 'instructor', 'account_number' => '12345678910', 'name' => 'Ilham Rahmat Akbar', 'dob' => '2000-03-25']);
 
         $response->assertStatus(200);
     }

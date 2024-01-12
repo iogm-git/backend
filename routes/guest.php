@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Code\Member\Student\CoursesController;
+use App\Http\Controllers\Code\Member\Student\TransactionsController as MemberTransaction;
 use App\Http\Controllers\GuestController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,8 @@ Route::controller(GuestController::class)->prefix('auth')->group(function () {
     Route::post('google', 'google');
 });
 
-Route::get('test', [CoursesController::class, 'downloadCertificate']);
+Route::controller(MemberTransaction::class)->group(function () {
+    Route::get('transaction', 'store');
+});
+
+Route::post('/test', [CoursesController::class, 'updateCompletedLectures']);

@@ -92,8 +92,7 @@ class MemberController extends Controller
         }
 
         if ($validator->fails()) {
-            // return ResponseApiHelper::customApiResponse(false, null, null, $validator->errors());
-            return ResponseApiHelper::customApiResponse(false, $oldUsername, null, request('username'));
+            return ResponseApiHelper::customApiResponse(false, null, null, $validator->errors());
         }
 
         $success = $this->findMember()->update(['username' => request('username'), 'name' => request('name')]);

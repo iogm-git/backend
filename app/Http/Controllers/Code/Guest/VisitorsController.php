@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Code\General\Member;
 use App\Models\Code\Instructor\Studies\Courses;
 use App\Models\Code\Student\Certificates;
+use Illuminate\Support\Facades\Validator;
 
 class VisitorsController extends Controller
 {
@@ -21,10 +22,28 @@ class VisitorsController extends Controller
         if ($member->exists()) {
             return ResponseApiHelper::customApiResponse(true, null, 'Your account is already registered as ' . $member->first()->role);
         } else {
-            $success = Member::create([
-                'username' => request('username'),
-                'role' => request('role'),
-            ]);
+            if (request('role') == 'instructor') {
+                $validator = Validator::make(request()->all(), [
+                    'account_number' => 'required|numeric|min:10',
+                    'name' => 'required',
+                    'dob' => 'required',
+                ]);
+                if ($validator->fails()) {
+                    return ResponseApiHelper::customApiResponse(false, null, null, $validator->errors());
+                }
+
+                $success = Member::create([
+                    'username' => request('username'),
+                    'name' => request('name'),
+                    'dob' => request('dob'),
+                    'role' => request('role')
+                ]);
+            } else {
+                $success = Member::create([
+                    'username' => request('username'),
+                    'role' => request('role'),
+                ]);
+            }
 
             return ResponseApiHelper::customApiResponse($success, null, 'Data successfully added to the database.', 'Failed to add data to the database.');
         }

@@ -17,16 +17,11 @@ class TransactionsSeeder extends Seeder
     {
         //
         Transactions::create([
+            'order_id' => uniqid(),
             'student_id' => 'student_one',
             'course_id' => 1,
             'amount' => 15000,
-            'status' => 'PAID'
-        ]);
-
-        Transactions::create([
-            'student_id' => 'student_two',
-            'course_id' => 3,
-            'amount' => 15000,
+            'status' => 'settlement'
         ]);
     }
 }
