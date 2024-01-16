@@ -21,7 +21,7 @@ class TripayTestExample extends TestCase
 
     protected function loginUser()
     {
-        $response = $this->post('guest/auth/login', [
+        $response = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);

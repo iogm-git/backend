@@ -24,7 +24,7 @@ return [
         env('FRONTEND_URL_2'),
     ],
 
-    'allowed_origins_patterns' => ['*'],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 

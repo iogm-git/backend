@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\User\MemberController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MemberController::class)->group(function () {

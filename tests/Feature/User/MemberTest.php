@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use Tests\CreatesApplication;
 use Tests\TestCase;
@@ -21,13 +21,13 @@ class MemberTest extends TestCase
 
     protected function loginUser()
     {
-        $jwtToken = $this->post('guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
 
-        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
+        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $jwtToken->json('access_token')])
+            ->json('post', 'user/guest/auth/me');
 
         $this->token = $jwtToken->json('access_token');
         $this->id = $user->json('id');
@@ -38,7 +38,7 @@ class MemberTest extends TestCase
         // if image not profile svg and want change image from google
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'member/upload-profile-image', ['id' => $this->id, 'image' => base64_encode(file_get_contents(public_path('/test/img.webp')))]);
+            ->json('post', 'user/member/upload-profile-image', ['id' => $this->id, 'image' => base64_encode(file_get_contents(public_path('/test/img.webp')))]);
 
         $response->assertStatus(200);
     }
@@ -48,7 +48,7 @@ class MemberTest extends TestCase
         // if image is profile svg
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'member/upload-profile-image', ['id' => $this->id, 'image' => 'profile.svg']);
+            ->json('post', 'user/member/upload-profile-image', ['id' => $this->id, 'image' => 'profile.svg']);
 
         $response->assertStatus(200);
     }
@@ -57,7 +57,7 @@ class MemberTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'member/otp/send-mail', ['id' => $this->id, 'email' => 'ilhamrahmat652@gmail.com']);
+            ->json('post', 'user/member/otp/send-mail', ['id' => $this->id, 'email' => 'ilhamrahmat652@gmail.com']);
 
         $response->assertStatus(200);
     }
@@ -66,7 +66,7 @@ class MemberTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'member/otp/verify', ['id' => $this->id, 'otp' => '0000']);
+            ->json('post', 'user/member/otp/verify', ['id' => $this->id, 'otp' => '0000']);
 
         $response->assertStatus(422);
     }
@@ -75,7 +75,7 @@ class MemberTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('put', 'member/update-data', ['id' => $this->id, 'data' => ['phone' => '081272369357']]);
+            ->json('put', 'user/member/update-data', ['id' => $this->id, 'data' => ['phone' => '081272369357']]);
 
         $response->assertStatus(200);
     }
@@ -84,8 +84,8 @@ class MemberTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('put', 'member/update-authentication', ['id' => $this->id, 'username' => 'ilhamrhmtkbr', 'name' => 'ilham rahmat akbar']);
+            ->json('put', 'user/member/update-authentication', ['id' => $this->id, 'username' => 'ilhamrhmtkbr', 'name' => 'ilham rahmat akbar']);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 }

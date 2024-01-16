@@ -38,29 +38,30 @@
 
 Isi dari project ini adalah core backend dari aplikasi IOGM. Bertujuan untuk menampilkan source code yang telah saya buat sebagai bahan pertimbangan. 
  
-Berikut ini beberapa bagian dari website : 
+Berikut ini beberapa bagian dari website aplikasi IOGM : 
 
-IOGM - Blog adalah website profile saya. Hanya menampilkan informasi yang ingin saya bagikan pada saat pertama kali belajar membuat website.
+IOGM - User adalah aplikasi yang berguna untuk mengelola akun yang akan digunakan di seluruh bagian dari aplikasi Shop dan Code.
 
 IOGM - Shop adalah aplikasi penjualan sederhana. Menjual landing page yang dibangun menggunakan HTML, CSS, Javascript. Jadi ketika sudah berhasil transaksi, maka member yang sudah bayar bisa mendownload zip yang berisi file tersebut.
 
-IOGM - Code adalah aplikasi pembelajaran online tentang programming. Pemberi materi akan menerima pendapatan setelah penerima materi resmi membeli materi tersebut. Dan penerima materi akan mendapatkan sertifikat jika sudah menyelesaikan pembelajaran.
+IOGM - Code adalah aplikasi pembelajaran online tentang programming. Pemberi materi akan menerima pendapatan setelah penerima materi resmi membeli materi tersebut. Dan penerima materi akan mendapatkan sertifikat jika sudah menyelesaikan pembelajaran. (Saat ini masih mengembangkan fitur payout)
 
-Ketika project ini dijalankan, ada beberapa bagian dari aplikasi tidak berfungsi, berikut diantaranya :
+Ketika project ini dijalankan di local anda, ada beberapa bagian dari aplikasi tidak berfungsi, berikut diantaranya :
   - IOGM - Shop : 
     - view dari landing page dan file zip yang berisi landing page untuk di download. Karena saya tidak ingin mengupload isi dari apa yang dijual aplikasi ini.  
 
 Untuk lebih jelasnya silahkan buka .gitignore
 
 ### Feature
-    IOGM :
-    
+1. IOGM - User :
     - Autentikasi : 
       - Frontend = Google (hanya mengambil email kemudian tetap di proses login menggunakan jwt)
       - Backend = Jwt
     
     - Member :
-      - Memilih pendaftaran/keperluan login untuk shop atau code
+      - Mengelola informasi seperti username , name, foto
+      - Menerima email yang berisi kode untuk memvalidasi email
+      - Jika sudah terisi email maka bisa memilih pendaftaran/keperluan login untuk shop atau code
 
 1. IOGM - Shop :
     - Guest :
@@ -68,16 +69,16 @@ Untuk lebih jelasnya silahkan buka .gitignore
       - Melihat details dari website
       
     - Member :
-      - Mengelola informasi mengengai profile diri seperti username,name, foto, validasi email menggunakan otp, transaksi.
       - User bisa mencoba/melihat view tampilan seluruh landing page, dengan syarat sudah terdaftar sebagai member.
       - Menambahkan landing page ke dalam daftar favorite dan keranjang.
-      - Melakukan transaksi, jika sudah memvalidasi email.
-      - Menerima email untuk validasi kode otp.
-      - Mendownload history transaksi format pdf.
-      - Mencari, memfilter website berdasarkan kategori, type, dan nama.
+      - Melakukan, melihat, dan mendownload transaksi.
+      - Mengunduh file .zip jika sudah membayar.
       - Metode pembayaran menggunakan Tripay.
 
 2. IOGM - Code :
+    - Guest : 
+      - Melihat dan search course
+
     - Member :
       - General :
         - Forum diskusi : 
@@ -153,8 +154,8 @@ _Berikut ini adalah cara untuk memulai pengetesan._
 3. Copy .env.example and setting env
     ---
         APP_URL=http://localhost:8000
-        FRONTEND_URL_1=http://localhost:5173
-        FRONTEND_URL_2=http://localhost:5173
+        FRONTEND_URL_1=http://localhost:5173 # menyesuaikan cors
+        FRONTEND_URL_2=http://localhost:3000 # menyesuaikan cors
 
         DB_CONNECTION=mysql
         DB_HOST=your_db_host

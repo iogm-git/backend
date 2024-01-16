@@ -10,8 +10,6 @@ class PersonalizeTest extends TestCase
     use CreatesApplication;
 
     protected $token;
-    protected $id;
-    protected $username;
 
     public function setUp(): void
     {
@@ -22,17 +20,12 @@ class PersonalizeTest extends TestCase
 
     protected function loginUser()
     {
-        $jwtToken = $this->post('guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
 
-        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
-
         $this->token = $jwtToken->json('access_token');
-        $this->id = $user->json('id');
-        $this->username = $user->json('username');
     }
 
     public function test_get_data_personalization()

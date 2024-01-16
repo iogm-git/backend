@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Shop\Member;
 
 use App\Helpers\ResponseApiHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Member;
 use App\Models\Shop\Member\Stash;
 use App\Models\Shop\Member\Transactions;
 

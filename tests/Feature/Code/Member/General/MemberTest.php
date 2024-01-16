@@ -22,13 +22,13 @@ class MemberTest extends TestCase
 
     protected function loginUser()
     {
-        $jwtToken = $this->post('guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
 
-        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
+        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $jwtToken->json('access_token')])
+            ->json('post', 'user/guest/auth/me');
 
         $this->token = $jwtToken->json('access_token');
         $this->id = $user->json('id');

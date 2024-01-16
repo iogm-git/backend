@@ -20,7 +20,7 @@ class VisitorsController extends Controller
     {
         $member = $this->getMember();
         if ($member->exists()) {
-            return ResponseApiHelper::customApiResponse(true, null, 'Your account is already registered as ' . $member->first()->role);
+            return ResponseApiHelper::customApiResponse(false, null, 'Your account is already registered as ' . $member->first()->role);
         } else {
             if (request('role') == 'instructor') {
                 $validator = Validator::make(request()->all(), [

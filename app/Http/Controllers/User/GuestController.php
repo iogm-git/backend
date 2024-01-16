@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Models\Member;
+use Illuminate\Support\Str;
+use App\Models\User\Member;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;

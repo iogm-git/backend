@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
-use App\Models\Member;
+use App\Models\User\Member;
 use Tests\CreatesApplication;
 use Tests\TestCase;
 
@@ -21,7 +21,7 @@ class GuestTest extends TestCase
 
     protected function loginUser()
     {
-        $response = $this->post('guest/auth/login', [
+        $response = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
@@ -31,7 +31,7 @@ class GuestTest extends TestCase
 
     public function test_auth_google()
     {
-        $response = $this->post('guest/auth/google', [
+        $response = $this->post('user/guest/auth/google', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
@@ -41,7 +41,7 @@ class GuestTest extends TestCase
 
     public function test_auth_register(): void
     {
-        $response = $this->post('guest/auth/register', [
+        $response = $this->post('user/guest/auth/register', [
             'username' => 'user1',
             'password' => 'P4sw0rd!',
             'password_confirmation' => 'P4sw0rd!',
@@ -57,7 +57,7 @@ class GuestTest extends TestCase
 
     public function test_auth_login(): void
     {
-        $response = $this->post('guest/auth/login', [
+        $response = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
@@ -73,7 +73,7 @@ class GuestTest extends TestCase
     public function test_auth_me(): void
     {
         $authenticatedResponse = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
+            ->json('post', 'user/guest/auth/me');
 
         $authenticatedResponse->assertStatus(200);
     }
@@ -81,7 +81,7 @@ class GuestTest extends TestCase
     public function test_auth_logout(): void
     {
         $authenticatedResponse = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/logout');
+            ->json('post', 'user/guest/auth/logout');
 
         $authenticatedResponse->assertStatus(200);
     }

@@ -22,13 +22,13 @@ class VisitorsTest extends TestCase
 
     protected function loginUser()
     {
-        $jwtToken = $this->post('guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
 
-        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
+        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $jwtToken->json('access_token')])
+            ->json('post', 'user/guest/auth/me');
 
         $this->token = $jwtToken->json('access_token');
         $this->id = $user->json('id');
@@ -39,9 +39,19 @@ class VisitorsTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'code/guest/visitor/register', ['username' => $this->username, 'role' => 'instructor', 'account_number' => '12345678910', 'name' => 'Ilham Rahmat Akbar', 'dob' => '2000-03-25']);
+            ->json(
+                'post',
+                'code/guest/visitor/register',
+                [
+                    'username' => $this->username,
+                    'role' => 'instructor',
+                    'account_number' => '12345678910',
+                    'name' => 'Ilham Rahmat Akbar',
+                    'dob' => '2000-03-25'
+                ]
+            );
 
-        $response->assertStatus(200);
+        $response->assertStatus(422);
     }
 
     public function test_search_course()

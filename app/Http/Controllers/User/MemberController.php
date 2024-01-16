@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Helpers\ResponseApiHelper;
 use App\Mail\Otp;
-use App\Models\Member;
+use App\Models\User\Member;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -20,12 +21,14 @@ class MemberController extends Controller
     public function uploadProfileImage()
     {
         $image = 'profile.svg';
-        $oldImage = $this->findMember()->first()->image;
+        $oldImage = $this->findMember()->image;
 
         if (request('image') == 'profile.svg') {
-            $success = Storage::delete('public/images/' . $oldImage);
-            if (!$success) {
-                return ResponseApiHelper::customApiResponse(false, null, null, 'File failed to delete.');
+            if ($oldImage != 'profile.svg' && !str_contains('https://', $oldImage)) {
+                $success = Storage::delete('public/images/' . $oldImage);
+                if (!$success) {
+                    return ResponseApiHelper::customApiResponse(false, null, null, 'File failed to delete.');
+                }
             }
         } else {
             if ($oldImage != 'profile.svg' && !str_contains('https://', $oldImage)) {
@@ -35,7 +38,7 @@ class MemberController extends Controller
                 }
             }
             $image = Str::uuid() . '.png';
-            $success = Storage::disk('local')->put('public/images/' . $image, base64_decode(request('image')));
+            $success = Storage::disk('local')->put('public/images/' . $image, base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('image'))));
             if (!$success) {
                 return ResponseApiHelper::customApiResponse(false, null, null, 'File failed to put.');
             }
@@ -78,10 +81,10 @@ class MemberController extends Controller
 
     public function updateAuthentication()
     {
-        $oldUsername = $this->findMember()->first()->username;
-        if ($oldUsername != request('username')) {
+        $oldUsername = $this->findMember()->username;
+        if ($oldUsername !== request('username')) {
             $validator = Validator::make(request()->all(), [
-                'username' => 'required|unique_from_model:App\Models\Member,username|min:4',
+                'username' => 'required|unique_from_model:App\Models\User\Member,username|min:4',
                 'name' => 'required|min:4'
             ]);
         } else {
@@ -94,6 +97,7 @@ class MemberController extends Controller
         if ($validator->fails()) {
             return ResponseApiHelper::customApiResponse(false, null, null, $validator->errors());
         }
+
 
         $success = $this->findMember()->update(['username' => request('username'), 'name' => request('name')]);
 

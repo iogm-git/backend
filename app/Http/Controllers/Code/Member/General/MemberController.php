@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Code\Member\General;
 use App\Helpers\ResponseApiHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Code\General\Member;
-use App\Models\Member as CoreMember;
+use App\Models\User\Member as CoreMember;
 use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller

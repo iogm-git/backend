@@ -10,8 +10,6 @@ class TransactionsTest extends TestCase
     use CreatesApplication;
 
     protected $token;
-    protected $id;
-    protected $username;
 
     public function setUp(): void
     {
@@ -22,17 +20,12 @@ class TransactionsTest extends TestCase
 
     public function loginUser()
     {
-        $jwtToken = $this->post('guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'student_one',
             'password' => 'student_one'
         ]);
 
-        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'guest/auth/me');
-
         $this->token = $jwtToken->json('access_token');
-        $this->id = $user->json('id');
-        $this->username = $user->json('username');
     }
 
     public function test_store()

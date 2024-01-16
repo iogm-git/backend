@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Code\Student;
+namespace App\Http\Middleware\Custom\Code;
 
 use App\Helpers\ResponseApiHelper;
 use App\Models\Code\Student\Transactions;

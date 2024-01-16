@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Code\General\Member;
 use App\Models\Code\Instructor\Studies\Courses;
 use App\Models\Code\Student\Transactions;
-use App\Models\Member as CoreMember;
+use App\Models\User\Member as CoreMember;
 use Midtrans\Config;
 
 class TransactionsController extends Controller

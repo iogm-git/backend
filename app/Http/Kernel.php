@@ -41,6 +41,11 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
+        'auth.jwt' => [
+            'throttle:auth.jwt',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]
     ];
 
@@ -64,8 +69,8 @@ class Kernel extends HttpKernel
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
 
         // other middlewares...
-        'auth.jwt' => \App\Http\Middleware\JwtMiddleware::class,
-        'check-paid-status' => \App\Http\Middleware\Code\Student\CheckPaidStatus::class,
-        'email-otp-verification' => \App\Http\Middleware\EmailOtpVerificationMiddleware::class,
+        'auth.jwt' => \App\Http\Middleware\Custom\User\JwtMiddleware::class,
+        'check-paid-status' => \App\Http\Middleware\Custom\Code\CheckPaidStatus::class,
+        'email-otp-verification' => \App\Http\Middleware\Custom\Shop\EmailOtpVerificationMiddleware::class,
     ];
 }

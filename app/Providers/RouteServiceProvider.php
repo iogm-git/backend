@@ -29,18 +29,18 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('guest')
-                ->group(base_path('routes/guest.php'));
-
-            Route::middleware('auth.jwt')
-                ->prefix('member')
-                ->group(base_path('routes/member.php'));
-
             Route::prefix('blog')
                 ->group(base_path('routes/blog/guest.php'));
 
-            Route::middleware('auth.jwt')
+            Route::middleware('api')
+                ->prefix('user/guest')
+                ->group(base_path('routes/user/guest.php'));
+
+            Route::middleware(['api', 'auth.jwt'])
+                ->prefix('user/member')
+                ->group(base_path('routes/user/member.php'));
+
+            Route::middleware(['api', 'auth.jwt'])
                 ->prefix('shop/member')
                 ->group(base_path('routes/shop/member.php'));
 
@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('shop/guest')
                 ->group(base_path('routes/shop/guest.php'));
 
-            Route::middleware('auth.jwt')
+            Route::middleware(['api', 'auth.jwt'])
                 ->prefix('code/member')
                 ->group(base_path('routes/code/member.php'));
 
@@ -70,6 +70,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('auth.jwt', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
