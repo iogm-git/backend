@@ -20,8 +20,9 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        env('FRONTEND_URL_1'),
-        env('FRONTEND_URL_2'),
+        env('FRONTEND_URL_USER'),
+        env('FRONTEND_URL_SHOP'),
+        env('FRONTEND_URL_CODE'),
     ],
 
     'allowed_origins_patterns' => [],

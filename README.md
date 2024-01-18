@@ -154,8 +154,9 @@ _Berikut ini adalah cara untuk memulai pengetesan._
 3. Copy .env.example and setting env
     ---
         APP_URL=http://localhost:8000
-        FRONTEND_URL_1=http://localhost:5173 # menyesuaikan cors
-        FRONTEND_URL_2=http://localhost:3000 # menyesuaikan cors
+        FRONTEND_URL_USER=http://localhost:5173 # menyesuaikan cors
+        FRONTEND_URL_SHOP=http://localhost:3000 # menyesuaikan cors
+        FRONTEND_URL_CODE=http://localhost:9000 # menyesuaikan cors
 
         DB_CONNECTION=mysql
         DB_HOST=your_db_host

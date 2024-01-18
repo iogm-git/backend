@@ -20,14 +20,21 @@ class VisitorsController extends Controller
     {
         $member = $this->getMember();
         if ($member->exists()) {
-            return ResponseApiHelper::customApiResponse(false, null, 'Your account is already registered as ' . $member->first()->role);
+            return ResponseApiHelper::customApiResponse(false, null, null, ['msg' => 'Your account is already registered as ' . $member->first()->role]);
         } else {
-            if (request('role') == 'instructor') {
+            if (request()->hasAny(['dob', 'role', 'address'])) {
+                if (request('role') == 'instructor') {
+                    $validator = Validator::make(request()->all(), [
+                        'account_number' => 'required|numeric|min:10',
+                    ]);
+                }
+
                 $validator = Validator::make(request()->all(), [
-                    'account_number' => 'required|numeric|min:10',
-                    'name' => 'required',
                     'dob' => 'required',
+                    'role' => 'required',
+                    'address' => 'required|string:5|min:10'
                 ]);
+
                 if ($validator->fails()) {
                     return ResponseApiHelper::customApiResponse(false, null, null, $validator->errors());
                 }
@@ -36,16 +43,13 @@ class VisitorsController extends Controller
                     'username' => request('username'),
                     'name' => request('name'),
                     'dob' => request('dob'),
-                    'role' => request('role')
-                ]);
-            } else {
-                $success = Member::create([
-                    'username' => request('username'),
                     'role' => request('role'),
                 ]);
-            }
 
-            return ResponseApiHelper::customApiResponse($success, null, 'Data successfully added to the database.', 'Failed to add data to the database.');
+                return ResponseApiHelper::customApiResponse($success, null, 'Data successfully added to the database.', 'Failed to add data to the database.');
+            } else {
+                return ResponseApiHelper::customApiResponse(false, null, null, ['msg' => 'Your account not register']);
+            }
         }
     }
 

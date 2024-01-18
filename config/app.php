@@ -56,9 +56,11 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'frontend_url_1' => env('FRONTEND_URL_1', 'http://localhost:5173'),
+    'frontend_url_user' => env('FRONTEND_URL_USER', 'http://localhost:5173'),
 
-    'frontend_url_2' => env('FRONTEND_URL_2', 'http://localhost:3000'),
+    'frontend_url_shop' => env('FRONTEND_URL_SHOP', 'http://localhost:3000'),
+
+    'frontend_url_code' => env('FRONTEND_URL_CODE', 'http://localhost:9000'),
 
     'asset_url' => env('ASSET_URL'),
 

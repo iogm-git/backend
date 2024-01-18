@@ -23,15 +23,15 @@ class GuestController extends Controller
 
     public function google()
     {
-        $member = Member::where('username', '=', request('username'));
+        list($username, $_) = explode("@", request('email'));
+
+        $member = Member::where('id', request('id'));
 
         if (!$member->exists()) {
-            list($username, $_) = explode("@", request('email'));
-
             Member::create([
                 'id' => request('id'),
                 'username' => $username,
-                'member_password' => Hash::make('member_password'),
+                'member_password' => Hash::make('P4ssW0rd!?'),
                 'name' => request('name'),
                 'email' => request('email'),
                 'verification_at' => now(),
@@ -39,12 +39,12 @@ class GuestController extends Controller
             ]);
             $credentials = [
                 'id' => request('id'),
-                'password' => 'password'
+                'password' => 'P4ssW0rd!?'
             ];
         } else {
             $credentials = [
-                'username' => $member->first()->username,
-                'password' => 'password'
+                'id' => $member->first()->id,
+                'password' => 'P4ssW0rd!?'
             ];
         }
 
