@@ -32,6 +32,6 @@ class EmailOtpVerificationMiddleware
     private function isMemberVerified($memberId)
     {
         // Check if the 'verification_at' column for the Member with the given ID is null
-        return is_null(Member::where('id', $memberId)->value('verification_at'));
+        return !is_null(Member::find($memberId)->value('verification_at'));
     }
 }

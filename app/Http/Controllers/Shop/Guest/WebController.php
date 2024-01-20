@@ -11,17 +11,20 @@ class WebController extends Controller
 {
     public function details()
     {
-        return ResponseApiHelper::customApiResponse(true, Details::paginate(5), 'Data retrieved successfully.');
+        $data = Details::paginate(5);
+        return ResponseApiHelper::customApiResponse(true, $data);
     }
 
     public function category()
     {
-        return ResponseApiHelper::customApiResponse(true, Details::filter(request(['name']))->get(), 'Data retrieved successfully.');
+        $data = Details::filter(request(['name']))->get();
+        return ResponseApiHelper::customApiResponse(true, $data);
     }
 
     public function search()
     {
-        return ResponseApiHelper::customApiResponse(true, Details::filter(request(['keyword']))->get(), 'Data retrieved successfully.');
+        $data = Details::filter(request(['keyword']))->get();
+        return ResponseApiHelper::customApiResponse(true, $data);
     }
 
     public function categories()
@@ -34,11 +37,13 @@ class WebController extends Controller
             $categories[$i] = $data[$i]->name;
         }
 
-        return ResponseApiHelper::customApiResponse(true, $categories, 'Data retrieved successfully.');
+        return ResponseApiHelper::customApiResponse(true, $categories);
     }
 
     public function show()
     {
-        return ResponseApiHelper::customApiResponse(true, Details::whereRelation('web_category', 'name', '=', request('category'))->whereRelation('web_type', 'name', '=', request('type'))->first(), 'Data retrieved successfully.');
+        $data = Details::whereRelation('web_category', 'name', '=', request('category'))
+            ->whereRelation('web_type', 'name', '=', request('type'))->first();
+        return ResponseApiHelper::customApiResponse(true, $data);
     }
 }

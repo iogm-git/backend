@@ -2,7 +2,7 @@
 
 namespace App\Models\Shop\Member;
 
-use App\Models\Member;
+use App\Models\User\Member;
 use App\Models\Shop\Web\Details;
 use Illuminate\Database\Eloquent\Model;
 

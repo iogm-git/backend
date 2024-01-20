@@ -56,11 +56,11 @@
         <tbody>
             @foreach ($transactions as $transaction)
                 <tr>
-                    <td>{{ date('d/m/Y', strtotime($transaction['date'])) }}</td>
+                    <td>{{ date('d M Y', strtotime($transaction['date'])) }}</td>
                     <td>{{ $transaction['web']->id }}</td>
                     <td>{{ $transaction['web']->web_category->name }}</td>
                     <td>{{ $transaction['web']->web_type->name }}</td>
-                    <td>{{ 'RP ' . number_format($transaction['amount'], 2, ',', '.') }} </td>
+                    <td>{{ 'RP ' . $transaction->amount }} </td>
                     <td>{{ $transaction['status'] }}</td>
                     <td>{{ $transaction['reference_tripay'] }}</td>
                 </tr>

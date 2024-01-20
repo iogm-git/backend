@@ -13,6 +13,15 @@ class Transactions extends Model
     protected $guarded = ['date'];
     const CREATED_AT = 'date';
 
+    protected $casts = [
+        'date' => 'datetime:d M Y',
+    ];
+
+    public function getAmountAttribute($value)
+    {
+        return number_format($value, 2, ',', '.');
+    }
+
     public function web()
     {
         return $this->belongsTo(Details::class, 'web_id', 'id');

@@ -16,46 +16,34 @@ class TransactionController extends Controller
 
     public function information()
     {
-        if ($this->transaction()->exists()) {
-            return ResponseApiHelper::customApiResponse(true, $this->transaction()->get(), 'Data retrieved successfully.');
-        } else {
-            return ResponseApiHelper::customApiResponse(false, null, null, 'Data was not successfully retrieved.');
-        }
+        $data = $this->transaction()->get();
+        return ResponseApiHelper::customApiResponse(true, $data);
+    }
+
+    public function havePaid()
+    {
+        $data = $this->transaction()->where('status', '=', 'PAID')->get();
+        return ResponseApiHelper::customApiResponse(true, $data);
+    }
+
+    public function latestUnpaid()
+    {
+        $data = $this->transaction()->where('status', '=', 'UNPAID')->latest()->first();
+        return ResponseApiHelper::customApiResponse(true, $data);
     }
 
     public function purchase()
     {
-        if (!$this->transaction()->where('web_id', '=', request('web'))->exists()) {
+        if (!$this->transaction()->where('web_id', '=', request('web_id'))->exists()) {
             $success = Transactions::create([
                 'member_username' => request('username'),
-                'web_id' => request('web'),
+                'web_id' => request('web_id'),
                 'amount' => request('amount'),
             ]);
 
-            return ResponseApiHelper::customApiResponse($success, null, 'Data successfully added to the database.', 'Failed to add data to the database.');
+            return ResponseApiHelper::customApiResponse($success, null, 'Successfully added website to purchase list.');
         } else {
-            return ResponseApiHelper::customApiResponse(false, null, null, 'Data was not successfully retrieved.');
-        }
-    }
-
-    public function history()
-    {
-        // return response()->json(['data' => $this->transaction()->where('status', '=', 'PAID')->get() ?? null], 200);
-        if ($this->transaction()->where('status', '=', 'PAID')->exists()) {
-            return ResponseApiHelper::customApiResponse(true, $this->transaction()->where('status', '=', 'PAID')->get(), 'Data retrieved successfully.');
-        } else {
-            return ResponseApiHelper::customApiResponse(false, null, null, 'Data was not successfully retrieved.');
-        }
-    }
-
-    public function latest()
-    {
-        // return response()->json(['data' => $this->transaction()->where('status', '=', 'UNPAID')->latest()->first() ?? null], 200);
-
-        if ($this->transaction()->where('status', '=', 'UNPAID')->latest()->exists()) {
-            return ResponseApiHelper::customApiResponse(true, $this->transaction()->where('status', '=', 'UNPAID')->latest()->first(), 'Data retrieved successfully.');
-        } else {
-            return ResponseApiHelper::customApiResponse(false, null, null, 'Data was not successfully retrieved.');
+            return ResponseApiHelper::customApiResponse(true, null, 'You have purchased this website.');
         }
     }
 }

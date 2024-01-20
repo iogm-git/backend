@@ -14,10 +14,10 @@ Route::controller(MemberController::class)->group(function () {
 });
 
 Route::controller(TransactionController::class)->middleware('email-otp-verification')->prefix('transaction')->group(function () {
-    Route::post('information', 'information');
+    Route::get('information', 'information');
+    Route::get('have-paid', 'havePaid');
+    Route::get('latest-unpaid', 'latestUnpaid');
     Route::post('purchase', 'purchase');
-    Route::post('history', 'history');
-    Route::post('latest', 'latest');
 });
 
 Route::controller(TripayController::class)->prefix('tripay')->group(function () {
