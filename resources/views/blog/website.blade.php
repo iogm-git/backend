@@ -51,7 +51,8 @@
                         @for ($b = 0; $b < count($websites[$keys[$a]][1]); $b++)
                             @php $web=explode('-', $websites[$keys[$a]][1][$b]); @endphp
                             <div class="website__device"><a class="website__demo"
-                                    href="demo?category={{ $web[0] . '&type=' . $web[1] }}&url=website">Demo <svg>
+                                    href="demo?category={{ $web[0] . '&type=' . $web[1] }}&url=blog-guest-website">Demo
+                                    <svg>
                                         <use xlink:href="/blog/assets--website/sprite.svg#website--demo"></use>
                                     </svg></a><img
                                     src="../web/webp/{{ $websites[$keys[$a]][1][$b] }}.webp?v{{ time() }}"
