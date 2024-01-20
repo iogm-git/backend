@@ -25,13 +25,19 @@ Route::get('show', function () {
 });
 
 Route::get('demo', function () {
-    $prevPage = env('FRONTEND_URL');
+    $prevPage = env('FRONTEND_URL_SHOP');
     switch (request('url')) {
-        case 'detail':
-            $prevPage = env('FRONTEND_URL') . '/guest/' . request('url') . '?category=' . request('category') . '&type=' . request('type');
+        case 'shop-guest-index':
+            $prevPage = env('FRONTEND_URL_SHOP');
             break;
-        case 'website':
-            $prevPage = env('APP_URL') . '/blog/show?page=' . request('url');
+        case 'shop-member-stash':
+            $prevPage = env('FRONTEND_URL_SHOP') . '/member/stash';
+            break;
+        case 'shop-guest-show':
+            $prevPage = env('FRONTEND_URL_SHOP') . '/guest/show?category=' . request('category') . '&type=' . request('type');
+            break;
+        case 'blog-guest-website':
+            $prevPage = env('APP_URL') . '/blog/show?page=website';
             break;
         default:
             # code...
