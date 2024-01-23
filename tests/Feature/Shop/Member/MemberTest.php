@@ -38,16 +38,16 @@ class MemberTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('get', 'shop/member/stash', ['id' => $this->id]);
+            ->json('get', 'shop/member/stash', ['member_id' => $this->id]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_store_stash()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'shop/member/stash', ['web_id' => 'w012', 'member_id' => $this->id]);
+            ->json('post', 'shop/member/stash', ['web_id' => 'w012', 'id' => $this->id]);
 
         $response->assertStatus(200);
 

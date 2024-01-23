@@ -44,25 +44,25 @@
     <table>
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Date</th>
                 <th>Web Id</th>
                 <th>Web Type</th>
                 <th>Web Category</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Reference</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($transactions as $transaction)
                 <tr>
+                    <td>{{ $transaction['id'] }}</td>
                     <td>{{ date('d M Y', strtotime($transaction['date'])) }}</td>
                     <td>{{ $transaction['web']->id }}</td>
                     <td>{{ $transaction['web']->web_category->name }}</td>
                     <td>{{ $transaction['web']->web_type->name }}</td>
                     <td>{{ 'RP ' . $transaction->amount }} </td>
                     <td>{{ $transaction['status'] }}</td>
-                    <td>{{ $transaction['reference_tripay'] }}</td>
                 </tr>
             @endforeach
         </tbody>

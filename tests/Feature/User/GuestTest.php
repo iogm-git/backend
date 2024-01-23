@@ -11,29 +11,34 @@ class GuestTest extends TestCase
     use CreatesApplication;
 
     protected $token;
+    protected $id;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->token = $this->loginUser();
+        $this->loginUser();
     }
 
     protected function loginUser()
     {
-        $response = $this->post('user/guest/auth/login', [
+        $jwtToken = $this->post('user/guest/auth/login', [
             'username' => 'ilhamrhmtkbr',
             'password' => 'ilham25'
         ]);
 
-        return $response->json('access_token');
+        $user = $this->withHeaders(['Authorization' => 'Bearer ' . $jwtToken->json('access_token')])
+            ->json('post', 'user/guest/auth/me');
+
+        $this->token = $jwtToken->json('access_token');
+        $this->id = $user->json('id');
     }
 
     public function test_auth_google()
     {
         $response = $this->post('user/guest/auth/google', [
-            'username' => 'ilhamrhmtkbr',
-            'password' => 'ilham25'
+            'id' => $this->id,
+            'email' => 'ilham@gmail.com'
         ]);
 
         $response->assertStatus(422);

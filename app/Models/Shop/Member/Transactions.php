@@ -9,6 +9,7 @@ class Transactions extends Model
 {
     public $timestamps = false;
     protected $table = 'member_transactions';
+    protected $keyType = 'string';
     protected $with = ['web'];
     protected $guarded = ['date'];
     const CREATED_AT = 'date';

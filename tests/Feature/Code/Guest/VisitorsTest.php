@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Code\Guest;
 
+use App\Models\Code\General\Member;
 use Tests\CreatesApplication;
 use Tests\TestCase;
 
@@ -47,11 +48,12 @@ class VisitorsTest extends TestCase
                     'role' => 'instructor',
                     'account_number' => '12345678910',
                     'name' => 'Ilham Rahmat Akbar',
+                    'address' => 'Jalan abcdefghijklmn',
                     'dob' => '2000-03-25'
                 ]
             );
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_search_course()

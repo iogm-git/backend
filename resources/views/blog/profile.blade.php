@@ -298,8 +298,7 @@ for Beginners',
     </section>
     <section class="--active-link closing" id="website">
         <div class="closing__container container">
-            <h2 class="section__title">Please click <a href="/blog/show?page=website">here</a> to see a sample website
-                <br>what
+            <h2 class="section__title">Please click <a href="/show?page=website">here</a> to see a sample website <br>what
                 have I
                 done </h2>
         </div>

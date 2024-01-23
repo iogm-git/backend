@@ -50,7 +50,7 @@ class MemberController extends Controller
     public function downloadWeb()
     {
         $transaction = Transactions::find(request('id'));
-        if ($transaction && $transaction->status === 'PAID') {
+        if ($transaction && $transaction->status === 'paid') {
             $web = $transaction->web;
 
             return response()->download(
@@ -67,7 +67,7 @@ class MemberController extends Controller
     {
         $pdf = app('dompdf.wrapper');
 
-        $pdf->loadView('shop.layouts.pdf.history-transactions', ['transactions' => Transactions::where('member_username', request('username'))->get()]);
+        $pdf->loadView('shop.layouts.pdf.history-transactions', ['transactions' => Transactions::where('member_id', request('id'))->get()]);
 
         return $pdf->download('history-transactions.pdf');
     }

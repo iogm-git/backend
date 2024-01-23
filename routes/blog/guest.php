@@ -12,16 +12,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('storage', function () {
-    if (Illuminate\Support\Facades\Artisan::call('storage:link')) {
-        echo 'success';
-    } else {
-        echo 'failed';
-    }
-});
-
 Route::get('show', function () {
-    return view('blog/' . request('page'), ['type' => request('page')]);
+    return view('blog.' . request('page'), ['type' => request('page')]);
 });
 
 Route::get('demo', function () {

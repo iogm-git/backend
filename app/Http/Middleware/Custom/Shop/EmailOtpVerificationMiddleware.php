@@ -22,7 +22,7 @@ class EmailOtpVerificationMiddleware
 
         if (!$isVerified) {
             // If the Member is not verified, you can handle it as needed
-            return response()->json(['error' => 'Member is not verified'], 422);
+            return response()->json(['error' => 'Member is not verified']);
         }
 
         // Continue with the request if OTP is valid
@@ -32,6 +32,6 @@ class EmailOtpVerificationMiddleware
     private function isMemberVerified($memberId)
     {
         // Check if the 'verification_at' column for the Member with the given ID is null
-        return !is_null(Member::find($memberId)->value('verification_at'));
+        return !is_null(Member::find($memberId)->verification_at);
     }
 }

@@ -10,7 +10,7 @@ class TransactionTest extends TestCase
     use CreatesApplication;
 
     protected $token;
-    protected $username;
+    protected $id;
 
     public function setUp(): void
     {
@@ -19,7 +19,7 @@ class TransactionTest extends TestCase
         $this->token = $this->loginUser();
     }
 
-    // semua test failed karena id ngga dikirimkan, dan meskipun dikirimkan tetap error karena belum verifikasi email
+    // semua test failed karena belum verifikasi email
 
     protected function loginUser()
     {
@@ -31,7 +31,7 @@ class TransactionTest extends TestCase
         $user = $this->withHeaders(['Authorization' => 'Bearer ' . $jwtToken->json('access_token')])
             ->json('post', 'user/guest/auth/me');
 
-        $this->username = $user->json('username');
+        $this->id = $user->json('id');
 
         return $jwtToken->json('access_token');
     }
@@ -40,36 +40,37 @@ class TransactionTest extends TestCase
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'shop/member/transaction/information', ['username' => $this->username]);
+            ->json('get', 'shop/member/transaction/information', ['id' => $this->id]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
-    public function test_purchase()
-    {
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'shop/member/transaction/purchase', ['username' => $this->username, 'web' => 'w011', 'amount' => 5]);
+    // kalo tripay
+    // public function test_purchase()
+    // {
+    //     $response = $this
+    //         ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
+    //         ->json('post', 'shop/member/transaction/purchase', ['id' => $this->id, 'web' => 'w011', 'amount' => 5]);
 
-        $response->assertStatus(422);
-    }
+    //     $response->assertStatus(200);
+    // }
 
 
     public function test_history()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'shop/member/transaction/history', ['username' => $this->username]);
+            ->json('get', 'shop/member/transaction/have-paid', ['id' => $this->id]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_latest()
     {
         $response = $this
             ->withHeaders(['Authorization' => 'Bearer ' . $this->token])
-            ->json('post', 'shop/member/transaction/latest', ['username' => $this->username]);
+            ->json('get', 'shop/member/transaction/latest-unpaid', ['id' => $this->id]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 }

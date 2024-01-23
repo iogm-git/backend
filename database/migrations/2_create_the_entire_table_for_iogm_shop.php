@@ -43,15 +43,15 @@ return new class extends Migration
         });
 
         Schema::create('member_transactions', function (Blueprint $table) {
-            $table->id();
-            $table->string('member_username');
+            $table->string('id')->primary();
+            $table->string('member_id');
             $table->string('web_id');
             $table->timestamp('date')->useCurrent();
             $table->integer('amount')->nullable(false);
-            $table->string('status')->default('UNPAID');
-            $table->string('reference_tripay')->nullable();
+            $table->string('status')->default('unpaid');
+            $table->json('midtrans_data')->nullable();
 
-            $table->foreign('member_username')->references('username')->on('member_data')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('member_data')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('web_id')->references('id')->on('web_details')->onUpdate('cascade')->onDelete('cascade');
         });
     }

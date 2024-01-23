@@ -32,6 +32,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('blog')
                 ->group(base_path('routes/blog/guest.php'));
 
+            Route::prefix('/')
+                ->group(base_path('routes/callback-transactions.php'));
+
             Route::middleware('api')
                 ->prefix('user/guest')
                 ->group(base_path('routes/user/guest.php'));

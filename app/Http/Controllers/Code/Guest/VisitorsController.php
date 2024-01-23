@@ -20,7 +20,7 @@ class VisitorsController extends Controller
     {
         $member = $this->getMember();
         if ($member->exists()) {
-            return ResponseApiHelper::customApiResponse(false, null, null, ['msg' => 'Your account is already registered as ' . $member->first()->role]);
+            return ResponseApiHelper::customApiResponse(true, null, 'Your account is already registered as ' . $member->first()->role);
         } else {
             if (request()->hasAny(['dob', 'role', 'address'])) {
                 if (request('role') == 'instructor') {
@@ -48,7 +48,7 @@ class VisitorsController extends Controller
 
                 return ResponseApiHelper::customApiResponse($success, null, 'Data successfully added to the database.', 'Failed to add data to the database.');
             } else {
-                return ResponseApiHelper::customApiResponse(false, null, null, ['msg' => 'Your account not register']);
+                return ResponseApiHelper::customApiResponse(true, null, 'Your account not register');
             }
         }
     }

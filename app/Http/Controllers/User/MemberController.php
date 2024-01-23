@@ -157,6 +157,9 @@ class MemberController extends Controller
 
         $updateUserMember = $this->findMember()->update(['username' => request('username'), 'name' => request('name')]);
         $codeMember = CodeMember::where('username', request('username'));
+
+        $updateCodeMember = true;
+
         if ($codeMember->exists()) {
             $updateCodeMember = $codeMember->update(['username' => request('username')]);
         }
