@@ -30,7 +30,7 @@ class GuestController extends Controller
         if (!$member->exists()) {
             Member::create([
                 'id' => request('id'),
-                'username' => $username,
+                'username' => substr($username, 0, 3) . '-' . substr(request('id'), 0, 3),
                 'member_password' => Hash::make('P4ssW0rd!?'),
                 'name' => request('name'),
                 'email' => request('email'),
